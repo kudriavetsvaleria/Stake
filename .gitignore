@@ -1,0 +1,43 @@
+# ===== .NET (backend) =====
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code
+.idea/
+.vscode/
+
+# Test results
+[TestResult*.trx
+*.coverage
+coverage/
+
+# ===== Node / React (frontend) =====
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Vite
+.vite/
+
+# Env files (секреты)
+.env
+.env.local
+.env.*.local
+
+# ===== OS / IDE общие =====
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== Прочее =====
+*.db
+*.sqlite
