@@ -41,3 +41,4 @@ yarn-error.log*
 # ===== Прочее =====
 *.db
 *.sqlite
+*.ARCHITECTURE.md
