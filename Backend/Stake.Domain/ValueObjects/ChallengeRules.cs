@@ -1,4 +1,5 @@
 using Stake.Domain.Common;
+using Stake.Domain.Entities;
 
 namespace Stake.Domain.ValueObjects;
 
@@ -50,6 +51,18 @@ public record ChallengeRules
         }
 
         return new ChallengeRules(hoursNorm, penaltyPercent, maxDaysOff, weeklyMinimum, penaltyMode);
+    }
+
+    public TimeSpan GetNormForDay(DayType dayType)
+    {
+        return dayType switch
+        {
+            DayType.Regular => HoursNorm,
+            DayType.DayOff => TimeSpan.Zero,
+            DayType.WeeklyMinimum => WeeklyMinimum
+                ?? throw new DomainException("This challenge has no weekly minimum, so a day cannot use it."),
+            _ => throw new DomainException($"Unknown day type: {dayType}.")
+        };
     }
 
     public ChallengeRules Update(

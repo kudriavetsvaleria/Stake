@@ -1,4 +1,5 @@
 using Stake.Domain.Common;
+using Stake.Domain.Entities;
 using Stake.Domain.ValueObjects;
 
 namespace Stake.Domain.Tests;
@@ -135,6 +136,38 @@ public class DebtTests
         // (10h + 5h) * 0.1 = 1.5h charged
         Assert.Equal(TimeSpan.FromHours(6.5), debt.Interest);
         Assert.Equal(TimeSpan.FromHours(10), debt.Principal);
+    }
+
+    [Fact]
+    public void ApplyWork_OnWeeklyMinimumDay_ExtraOverMinimumGoesToCredit()
+    {
+        var rules = ChallengeRules.Create(
+            hoursNorm: TimeSpan.FromHours(2), penaltyPercent: 0.1, maxDaysOff: 3,
+            weeklyMinimum: TimeSpan.FromHours(1), PenaltyMode.Simple);
+        var norm = rules.GetNormForDay(DayType.WeeklyMinimum);
+
+        // worked 1.5h against a 1h weekly minimum -> 0.5h excess
+        var debt = Debt.Zero.ApplyWork(TimeSpan.FromMinutes(90), norm, rules.PenaltyPercent, rules.PenaltyMode);
+
+        Assert.Equal(TimeSpan.Zero, debt.Principal);
+        Assert.Equal(TimeSpan.Zero, debt.Interest);
+        Assert.Equal(TimeSpan.FromMinutes(30), debt.Credit);
+    }
+
+    [Fact]
+    public void ApplyWork_OnDayOff_AllWorkedTimeGoesToCredit()
+    {
+        var rules = ChallengeRules.Create(
+            hoursNorm: TimeSpan.FromHours(2), penaltyPercent: 0.1, maxDaysOff: 3,
+            weeklyMinimum: TimeSpan.FromHours(1), PenaltyMode.Simple);
+        var norm = rules.GetNormForDay(DayType.DayOff);
+
+        // worked 1.5h on a day off (norm 0) -> all 1.5h is credit
+        var debt = Debt.Zero.ApplyWork(TimeSpan.FromMinutes(90), norm, rules.PenaltyPercent, rules.PenaltyMode);
+
+        Assert.Equal(TimeSpan.Zero, debt.Principal);
+        Assert.Equal(TimeSpan.Zero, debt.Interest);
+        Assert.Equal(TimeSpan.FromMinutes(90), debt.Credit);
     }
 
     [Fact]

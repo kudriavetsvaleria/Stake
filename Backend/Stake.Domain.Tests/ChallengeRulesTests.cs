@@ -1,4 +1,5 @@
 using Stake.Domain.Common;
+using Stake.Domain.Entities;
 using Stake.Domain.ValueObjects;
 
 namespace Stake.Domain.Tests;
@@ -134,5 +135,38 @@ public class ChallengeRulesTests
         var updated = rules.Update(updateWeeklyMinimum: true, weeklyMinimum: null);
 
         Assert.Null(updated.WeeklyMinimum);
+    }
+
+    [Fact]
+    public void GetNormForDay_Regular_ReturnsHoursNorm()
+    {
+        var rules = CreateValidRules();
+
+        Assert.Equal(TimeSpan.FromHours(4), rules.GetNormForDay(DayType.Regular));
+    }
+
+    [Fact]
+    public void GetNormForDay_DayOff_ReturnsZero()
+    {
+        var rules = CreateValidRules();
+
+        Assert.Equal(TimeSpan.Zero, rules.GetNormForDay(DayType.DayOff));
+    }
+
+    [Fact]
+    public void GetNormForDay_WeeklyMinimum_ReturnsWeeklyMinimum()
+    {
+        var rules = CreateValidRules();
+
+        Assert.Equal(TimeSpan.FromHours(1), rules.GetNormForDay(DayType.WeeklyMinimum));
+    }
+
+    [Fact]
+    public void GetNormForDay_WeeklyMinimum_WhenNotEnabled_Throws()
+    {
+        var rules = ChallengeRules.Create(
+            TimeSpan.FromHours(4), 0.1, 3, weeklyMinimum: null, PenaltyMode.Simple);
+
+        Assert.Throws<DomainException>(() => rules.GetNormForDay(DayType.WeeklyMinimum));
     }
 }
