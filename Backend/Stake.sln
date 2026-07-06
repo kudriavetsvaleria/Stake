@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stake.Api", "Stake.Api\Stak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stake.Domain.Tests", "Stake.Domain.Tests\Stake.Domain.Tests.csproj", "{0E7F29A5-8C50-45FC-AB00-403927F6336B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stake.Application.Tests", "Stake.Application.Tests\Stake.Application.Tests.csproj", "{C5D2DC15-F777-45DA-948F-8A0815903754}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{0E7F29A5-8C50-45FC-AB00-403927F6336B}.Release|x64.Build.0 = Release|Any CPU
 		{0E7F29A5-8C50-45FC-AB00-403927F6336B}.Release|x86.ActiveCfg = Release|Any CPU
 		{0E7F29A5-8C50-45FC-AB00-403927F6336B}.Release|x86.Build.0 = Release|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Debug|x64.Build.0 = Debug|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Release|x64.ActiveCfg = Release|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Release|x64.Build.0 = Release|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5D2DC15-F777-45DA-948F-8A0815903754}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
