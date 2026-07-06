@@ -8,5 +8,9 @@ public interface IParticipantRepository
 
     Task<Participant?> GetByNicknameAsync(string nickname, CancellationToken cancellationToken = default);
 
+    Task<bool> ExistsByTelegramUserIdAsync(long telegramUserId, CancellationToken cancellationToken = default);
+
+    Task<bool> ExistsByNicknameAsync(string nickname, CancellationToken cancellationToken = default);
+
     Task AddAsync(Participant participant, CancellationToken cancellationToken = default);
 }
