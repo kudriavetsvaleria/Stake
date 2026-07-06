@@ -18,6 +18,12 @@ public class FakeParticipantRepository : IParticipantRepository
     public Task<Participant?> GetByNicknameAsync(string nickname, CancellationToken cancellationToken = default) =>
         Task.FromResult(_participants.FirstOrDefault(p => p.Nickname == nickname));
 
+    public Task<bool> ExistsByTelegramUserIdAsync(long telegramUserId, CancellationToken cancellationToken = default) =>
+        Task.FromResult(_participants.Any(p => p.TelegramUserId == telegramUserId));
+
+    public Task<bool> ExistsByNicknameAsync(string nickname, CancellationToken cancellationToken = default) =>
+        Task.FromResult(_participants.Any(p => p.Nickname == nickname));
+
     public Task AddAsync(Participant participant, CancellationToken cancellationToken = default)
     {
         _participants.Add(participant);
