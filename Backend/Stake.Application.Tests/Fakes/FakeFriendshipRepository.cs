@@ -12,6 +12,9 @@ public class FakeFriendshipRepository : IFriendshipRepository
 
     public FakeFriendshipRepository(params Friendship[] seed) => Friendships.AddRange(seed);
 
+    public Task<Friendship?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
+        Task.FromResult(Friendships.FirstOrDefault(f => f.Id == id));
+
     public Task<bool> ExistsBetweenAsync(Guid participantA, Guid participantB, CancellationToken cancellationToken = default)
     {
         var exists = Friendships.Any(f =>
@@ -26,4 +29,6 @@ public class FakeFriendshipRepository : IFriendshipRepository
         Friendships.Add(friendship);
         return Task.CompletedTask;
     }
+
+    public void Remove(Friendship friendship) => Friendships.Remove(friendship);
 }
